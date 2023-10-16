@@ -1,0 +1,6 @@
+gradio
+mlserver
+transformers
+ipykernel
+numpy
+ipywidgets

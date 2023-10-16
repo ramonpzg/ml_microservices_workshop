@@ -1,0 +1,4 @@
+{
+    "name": "novice_dj",
+    "implementation": "audio_mixer.AudioMixer"
+}

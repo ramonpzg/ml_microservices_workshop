@@ -1,15 +1,14 @@
-import gradio as gr
-import numpy as np
-
 from src.plotting import make_waveform, make_spectogram
 from src.helpers import make_sound, audio_effect
+
+import gradio as gr
 
 examples = [
     "Hello", "By"
 ]
 
 with gr.Blocks(theme='gstaff/xkcd') as demo:
-    gr.Markdown("# Music Generation and Tagging App")
+    gr.Markdown("# Music Generation and Editing App")
     gr.Markdown("First Demo of the Day ~ TODO: Write Instructions Here")
 
     with gr.Column():

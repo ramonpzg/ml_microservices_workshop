@@ -1,0 +1,4 @@
+{
+    "name": "music_transcriber",
+    "implementation": "asr_model.ASRServer"
+}

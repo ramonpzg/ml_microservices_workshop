@@ -1,0 +1,4 @@
+{
+    "name": "music_classifier",
+    "implementation": "music_cls.MusicClassifier"
+}

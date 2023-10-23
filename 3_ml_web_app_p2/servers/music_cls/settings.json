@@ -1,0 +1,5 @@
+{
+    "http_port": 5080,
+    "grpc_port": 5060,
+    "metrics_port": 5070
+}

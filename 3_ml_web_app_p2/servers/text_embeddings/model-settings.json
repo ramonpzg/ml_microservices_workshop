@@ -1,0 +1,4 @@
+{
+    "name": "text_embedding",
+    "implementation": "text_embs.TextEmbeddings"
+}

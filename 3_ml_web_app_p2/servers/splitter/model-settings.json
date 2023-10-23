@@ -1,0 +1,4 @@
+{
+    "name": "music_splitter",
+    "implementation": "split_model.SongSplitter"
+}

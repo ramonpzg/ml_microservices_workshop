@@ -1,0 +1,4 @@
+{
+    "name": "audio_embedding",
+    "implementation": "audio_embs.MusicEmbeddings"
+}

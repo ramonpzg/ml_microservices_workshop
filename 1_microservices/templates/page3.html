@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Machine Learning Microservice</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<style>
+    body 
+    #gradioIframe {
+        width: 60vw;
+        height: 80vh;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        display: none;
+        margin-top: 20px;
+    }
+
+    #launchButton:checked~#gradioIframe {
+        display: block;
+    }
+</style>
+<body class="bg-gray-200 h-screen flex items-center justify-center">
+    <div class="container bg-white p-8 rounded shadow-md w-full text-center">
+        <h1 class="text-3xl font-bold mb-6">Machine Learning Microservice 1</h1>
+        <p class="text-gray-600 mb-8">This microservice provides access to a powerful machine learning model.</p>
+        <input type="checkbox" id="launchButton" class="hidden">
+        <label for="launchButton"
+            class="bg-blue-500 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg cursor-pointer transition duration-300 ease-in-out">
+            Launch ML App
+        </label>
+        <div id="gradioIframe" class="mt-6 hidden justify-center items-center">
+            <iframe src="https://gstaff-xkcd.hf.space" frameborder="0" class="w-full h-full"></iframe>
+        </div>
+    </div>
+
+</body>
+
+</html>

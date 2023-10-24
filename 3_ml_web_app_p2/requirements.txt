@@ -1,5 +1,0 @@
-pandas
-nicegui
-ipykernel
-requests
-pedalboard

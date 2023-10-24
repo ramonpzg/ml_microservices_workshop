@@ -11,13 +11,7 @@ class ASRServer(MLModel):
         self.pipe = pipeline("automatic-speech-recognition", model="openai/whisper-medium")
 
     @decode_args
-    async def predict(self, song: np.ndarray, sample_rate: np.ndarray
-        # max_new_tokens=2000,
-        # generate_kwargs={"task": "transcribe"},
-        # chunk_length_s=30,
-        # batch_size=8,
-        # return_timestamps=True
-    ) -> List[str]:
+    async def predict(self, song: np.ndarray, sample_rate: np.ndarray) -> List[str]:
         resampled_song = self.pre_process(song, sample_rate[0][0])
         return [self.pipe(resampled_song, max_new_tokens=2000)['text']]
     

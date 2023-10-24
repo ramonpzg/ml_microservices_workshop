@@ -6,14 +6,16 @@ import numpy as np
 from glob import glob
 import os
 
-
-def make_waveform():
-    # waveform = waveform.numpy()
+def get_latest_file():
     files =  glob("./music/*.mp3")
     latest_file = max(files, key=os.path.getctime)
     with AudioFile(latest_file, "r") as f:
         waveform = f.read(f.frames)
         sample_rate = f.samplerate
+    return waveform, sample_rate
+
+def make_waveform():
+    waveform, sample_rate = get_latest_file()
 
     num_channels, num_frames = waveform.shape
     time_axis = np.arange(0, num_frames) / sample_rate
@@ -32,18 +34,12 @@ def make_waveform():
 
 
 def make_spectogram():
-    # waveform = waveform.numpy()
-    files =  glob("./music/*.mp3")
-    latest_file = max(files, key=os.path.getctime)
-    with AudioFile(latest_file, "r") as f:
-        waveform = f.read(f.frames)
-        sample_rate = f.samplerate
+    waveform, sample_rate = get_latest_file()
 
     num_channels, num_frames = waveform.shape
     with plt.xkcd():
         figure = Figure() 
         axes = figure.subplots(num_channels, 1)
-        # figure, axes = plt.subplots(num_channels, 1)
         if num_channels == 1:
             axes = [axes]
         for c in range(num_channels):

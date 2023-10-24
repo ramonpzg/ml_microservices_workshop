@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,58 +6,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Machine Learning Microservice</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.15/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
     <style>
-        body {
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
+        body {height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center;}
+        .container {text-align: center;}
 
-        .container {
-            text-align: center;
+        #launchButton {display: none;}
+        #launchButtonLabel {
+            cursor: pointer; background-color: #4CAF50; color: white; padding: 14px 32px; text-align: center; text-decoration: none;
+            display: inline-block; font-size: 16px; margin-top: 20px; border-radius: 8px; transition: background-color 0.3s ease;
         }
-
-        #gradioIframe {
-            width: 80vw;
-            height: 80vh;
-            border: 1px solid #ccc;
-            border-radius: 10px;
-        }
+        #launchButton:checked+#launchButtonLabel {background-color: #45a049;}
+        #gradioIframe {width: 80vw; height: 80vh; border: 1px solid #ccc; border-radius: 10px; display: none; margin-top: 20px;}
+        #launchButton:checked~#gradioIframe {display: block;}
     </style>
 </head>
-
 <body>
-    <div class="container bg-white p-8 rounded shadow-md w-full">
+    <div class="container bg-white p-8 rounded shadow-md w-full text-center">
         <h1 class="text-3xl font-bold mb-6">Machine Learning Microservice 1</h1>
         <p class="text-gray-600 mb-8">This microservice provides access to a powerful machine learning model.</p>
-        <button id="launchButton"
-            class="bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
-            Launch ML App
-        </button>
-        <div id="gradioContainer" class="mt-8 hidden">
-            <iframe id="gradioIframe" src="" frameborder="0"></iframe>
+        <input type="checkbox" id="launchButton" class="hidden">
+        <label for="launchButton" id="launchButtonLabel">Launch ML App</label>
+        <div id="gradioIframe" class="mt-6 hidden">
+            <iframe src="https://gradio.s3-us-west-2.amazonaws.com/3.27.0/gradio.js" frameborder="0" class="w-full h-full"></iframe>
         </div>
     </div>
-
-    <script>
-        const launchButton = document.getElementById('launchButton');
-        const gradioContainer = document.getElementById('gradioContainer');
-        const gradioIframe = document.getElementById('gradioIframe');
-
-        launchButton.addEventListener('click', () => {
-            // Set the Gradio app URL hosted on Hugging Face Spaces
-            const gradioAppUrl = 'https://gstaff-xkcd.hf.space'; // Replace this with the actual URL
-
-            // Set the iframe source to the Gradio app URL
-            gradioIframe.src = gradioAppUrl;
-
-            // Show the Gradio container
-            gradioContainer.classList.remove('hidden');
-        });
-    </script>
 </body>
-
 </html>

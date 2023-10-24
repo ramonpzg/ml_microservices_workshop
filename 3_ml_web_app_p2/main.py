@@ -2,11 +2,7 @@ from nicegui import ui
 import pandas as pd
 import numpy as np
 import requests
-from pedalboard.io import AudioFile
-import os
-import io
-from IPython.display import Audio
-import tempfile
+from src.helpers import *
 
 
 (
@@ -38,37 +34,19 @@ def create_music_card(song):
         first_song = ui.audio(song['urls'])#.classes('w-64'):
         first_song.on('ended', lambda _: ui.notify('Audio playback completed!'))
 
-def create_tmp_audio(audio_data, sr):
-    with tempfile.NamedTemporaryFile(suffix='.mp3') as tmpf:
-        with AudioFile(tmpf.name, 'w', samplerate=sr, num_channels=1) as func:
-            func.write(audio_data)
-    return tmpf.name
 
 def get_vectors():
-    """Callback function for our search box"""
     song = song_selection.value.split(' - ')[-1] # get the name of the song selected
     get_index = metadata.loc[metadata['name'] == song, 'index'].iloc[0] # get the index of such a song
     song_selected = metadata.iloc[get_index]
-
-    # Clear the result from the previous artist selected
-    main_artist.clear()
-
+    main_artist.clear() # Clear the result from the previous artist selected
     with main_artist:
         create_music_card(song_selected)
 
-def download_song(song_to_get):
-    song_url = metadata.loc[metadata['artist_song'] == song_to_get, 'urls'].iloc[0]
-    with requests.get(song_url, stream=True) as music:
-        fil = io.BytesIO(music.content)
-        with AudioFile(fil, "r") as f:
-            song = f.read(f.frames)
-            sample_rate = f.samplerate
-    return song, sample_rate
-
 def split_song():
     third_artist.clear()
-    song, sample_rate = download_song(song_selection.value)
-    endpoint = "http://localhost:5070/v2/models/music_splitter/infer"
+    song, sample_rate = download_song(metadata, song_selection.value)
+    endpoint = "http://localhost:5010/v2/models/music_splitter/infer"
     input_request = {
         "inputs": [{
             "name": "song", "parameters": {"content_type": "np"}, "datatype": "FP32",
@@ -88,7 +66,7 @@ def split_song():
 
 def get_song_genre():
     second_artist.clear()
-    song, sample_rate = download_song(song_selection.value)
+    song, sample_rate = download_song(metadata, song_selection.value)
     input_request = {
         "inputs": [ 
             {
@@ -125,7 +103,6 @@ with ui.tabs().classes('w-full self-center justify-center items-center') as tabs
     four  = ui.tab('Four')
     five  = ui.tab('Five')
     six   = ui.tab('Six')
-    seven = ui.tab('Seven')
 
 
 with ui.tab_panels(tabs, value=one).classes('w-full self-center justify-center'):
@@ -150,22 +127,13 @@ with ui.tab_panels(tabs, value=one).classes('w-full self-center justify-center')
         third_artist = ui.column().classes('items-center w-full justify-center').style("margin: 0 auto; padding: 2rem;")
 
     with ui.tab_panel(four):
-        ui.label('Second tab')
+        ui.label('Fourth tab')
 
     with ui.tab_panel(five):
-        ui.label('Second tab')
+        ui.label('Fifth tab')
 
     with ui.tab_panel(six):
-        ui.label('Second tab')
-
-    with ui.tab_panel(seven):
-        ui.label('Second tab')
-
-
-dark = ui.dark_mode()
-ui.label('Switch mode:')
-ui.button('Dark', on_click=dark.enable)
-ui.button('Light', on_click=dark.disable)
+        ui.label('Sixth tab')
 
 
 ui.colors(
@@ -173,13 +141,12 @@ ui.colors(
     secondary='#2c387e',
     accent='#f50057',
     dark='#f73378',
-    positive='#f73378',
+    # positive='#f73378',
     negative='#ba000d'
-
 )
 
 ui.run(
-    title='Qdrant for Music',
-    # favicon='https://avatars.githubusercontent.com/u/73504361?s=280&v=4',
+    title='Music Microservices',
+    favicon='https://avatars.githubusercontent.com/u/10297834?s=280&v=4',
     # dark=True
 )

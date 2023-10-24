@@ -1,6 +1,5 @@
-
 from src.plotting import make_waveform, make_spectogram
-from src.helpers import *
+from src.helpers import make_sound, audio_effect
 import gradio as gr
 
 
@@ -26,7 +25,7 @@ with gr.Blocks(theme='gstaff/xkcd') as demo:
         
         audio_output = gr.Audio()
         make_music.click(fn=make_sound, inputs=[text, guidance, tokens, sample_rate], outputs=audio_output, api_name="create_music")
-
+        
         gr.Markdown()
         gr.Markdown("# Step 2 - Visualize your creation 📈 👀 👌")
         with gr.Row():

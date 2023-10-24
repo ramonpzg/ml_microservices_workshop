@@ -1,0 +1,17 @@
+mlserver
+transformers
+torch
+librosa
+pedalboard
+sentence_transformers
+faker
+git+https://github.com/facebookresearch/demucs#egg=demucs
+ipykernel
+diffusers
+accelerate
+safetensors
+pandas
+numpy
+matplotlib
+ipywidgets
+pyjokes

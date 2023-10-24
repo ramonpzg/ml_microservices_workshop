@@ -3,15 +3,12 @@ from mlserver import MLServer, Settings, ModelSettings, MLModel
 from mlserver.codecs import decode_args
 
 from transformers import AutoProcessor, MusicgenForConditionalGeneration
-from diffusers import AudioLDM2Pipeline
 import numpy as np
-import torch
 
-from typing import List, Optional
+from typing import List
 import asyncio 
 
 MUSICGEN = "facebook/musicgen-small"
-AUDIOLDM2 = "cvssp/audioldm2"
 
 class MusicGenServer(MLModel):
     async def load(self):
@@ -20,7 +17,7 @@ class MusicGenServer(MLModel):
 
     @decode_args
     async def predict(self, text: List[str], guidance_scale: np.ndarray, max_new_tokens: np.ndarray) -> np.ndarray:
-        inputs = self.processor(text=text, padding=True, return_tensors="pt")
+        inputs       = self.processor(text=text, padding=True, return_tensors="pt")
         audio_values = self.model.generate(
             **inputs, do_sample=True, guidance_scale=guidance_scale[0][0], max_new_tokens=max_new_tokens[0][0]
         ).numpy()

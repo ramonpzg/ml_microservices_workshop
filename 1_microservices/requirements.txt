@@ -1,1 +1,7 @@
 fastapi
+pyjokes
+pandas
+nicegui
+ipykernel
+requests
+pedalboard
